@@ -81,7 +81,7 @@ export default function PublicRoomPage() {
 
             {isAskModalOpen && (
                 <AskDoubt 
-                    subject={subject} 
+                    defaultSubject={subject} 
                     isOpen={isAskModalOpen} 
                     onClose={() => setIsAskModalOpen(false)} 
                     onSuccess={() => {
