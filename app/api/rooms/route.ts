@@ -35,12 +35,28 @@ export async function GET(req: Request) {
             .innerJoin(membershipsTable, eq(classroomsTable.id, membershipsTable.classroomId))
             .where(eq(membershipsTable.userEmail, email));
 
-        // Fetch recommendations (same university and year, not joined)
-        let recommendedRooms: any[] = [];
-        if (joinedRooms.length > 0) {
-            const joinedIds = joinedRooms.map((r) => r.id);
-            recommendedRooms = joinedRooms.filter((r) => !joinedIds.includes(r.id));
-        }
+        // Fetch current DB user
+const [dbUser] = await db
+    .select()
+    .from(usersTable)
+    .where(eq(usersTable.email, email));
+
+let recommendedRooms: any[] = [];
+
+if (dbUser) {
+    const joinedIds = joinedRooms.map((r) => r.id);
+
+    const allRooms = await db
+        .select()
+        .from(classroomsTable);
+
+    recommendedRooms = allRooms.filter(
+        (room) =>
+            room.university === dbUser.university &&
+            room.year === dbUser.year &&
+            !joinedIds.includes(room.id)
+    );
+}
 
         return NextResponse.json({
             joined: joinedRooms,
