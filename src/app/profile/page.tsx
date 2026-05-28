@@ -207,7 +207,7 @@ export default function ProfilePage() {
   return (
     <div className="container mx-auto p-4 md:p-8 max-w-5xl mt-16 text-slate-900 dark:text-zinc-100 bg-white dark:bg-black transition-colors duration-500">
       <button
-        onClick={() = aria-label="button"> router.back()}
+        onClick={() => router.back()}
         className="flex items-center gap-2 text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-white transition-colors mb-6 group text-sm font-medium"
       >
         <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />

@@ -108,7 +108,7 @@ export default function InfiniteDoubtFeed({
             <div className="py-10 flex flex-col items-center gap-4">
                 {!isReachingEnd ? (
                     <button
-                        onClick={() = aria-label="button"> setSize(size + 1)}
+                        onClick={() => setSize(size + 1)}
                         disabled={isLoadingMore || isValidating}
                         className="group flex items-center gap-3 px-8 py-3.5 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 hover:bg-slate-200 dark:hover:bg-white/10 hover:border-blue-500/30 rounded-2xl font-black uppercase tracking-[0.2em] text-[10px] transition-all active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
                     >

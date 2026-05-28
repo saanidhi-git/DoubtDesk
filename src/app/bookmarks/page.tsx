@@ -42,7 +42,7 @@ export default function BookmarksPage() {
             <header className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-slate-100 dark:border-zinc-900/60">
               <div className="space-y-2">
                 <button
-                  onClick={() = aria-label="button"> router.back()}
+                  onClick={() => router.back()}
                   className="flex items-center gap-2 text-slate-500 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-white transition-colors text-xs font-bold uppercase tracking-wider group"
                 >
                   <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-1 transition-transform" /> 
@@ -90,7 +90,7 @@ export default function BookmarksPage() {
                   You haven&apos;t bookmarked any doubts yet. Click the bookmark icon on any doubt card to save it here for later reference!
                 </p>
                 <button
-                  onClick={() = aria-label="button"> router.push("/dashboard")}
+                  onClick={() => router.push("/dashboard")}
                   className="px-6 py-3.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold uppercase tracking-wider text-xs transition-all duration-300 shadow-lg shadow-blue-600/10 active:scale-[0.98]"
                 >
                   Explore Doubts

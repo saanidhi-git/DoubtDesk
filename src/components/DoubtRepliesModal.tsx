@@ -372,7 +372,7 @@ export default function DoubtRepliesModal({ doubt, isOpen, onClose, onReplyChang
                         <div className="flex items-center gap-2 shrink-0">
                             {(isDoubtOwner || isTeacher) && reply.type === 'solution' && !editingId && (
                                 <button
-                                    onClick={() = aria-label="button"> handleMarkAsSolution(reply.id)}
+                                    onClick={() => handleMarkAsSolution(reply.id)}
                                     disabled={isSolving}
                                     className={`text-[8px] font-black uppercase tracking-widest px-3 py-1.5 rounded-xl border transition-all ${ isOfficial ? "bg-red-500/10 text-red-500 border-red-500/20 hover:bg-red-500" : "bg-emerald-500/10 text-emerald-500 border-emerald-500/20 hover:bg-emerald-500" } hover:text-slate-900 dark:hover:text-white hover:scale-105 active:scale-95`}
                                 >
@@ -383,7 +383,7 @@ export default function DoubtRepliesModal({ doubt, isOpen, onClose, onReplyChang
                             {isMe && !editingId && (
                                 <div className="relative">
                                     <button
-                                        onClick={() = aria-label="button"> setMenuOpenId(menuOpenId === reply.id ? null : reply.id)}
+                                        onClick={() => setMenuOpenId(menuOpenId === reply.id ? null : reply.id)}
                                         className="p-1.5 hover:bg-slate-200 dark:hover:bg-white/10 rounded-xl text-slate-500 dark:text-slate-500 hover:text-slate-900 dark:hover:text-white transition-all"
                                         aria-label="More options"
                                     >
@@ -393,7 +393,7 @@ export default function DoubtRepliesModal({ doubt, isOpen, onClose, onReplyChang
                                     {menuOpenId === reply.id && (
                                         <div className="absolute top-10 right-0 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-white/10 rounded-xl shadow-2xl py-1 w-32 animate-in zoom-in-95 duration-200 z-50 overflow-hidden">
                                             <button
-                                                onClick={(e) = aria-label="button"> {
+                                                onClick={(e) => {
                                                     e.stopPropagation();
                                                     if (reply.type === 'solution') {
                                                         setSolutionContent(reply.content || "");
@@ -412,7 +412,7 @@ export default function DoubtRepliesModal({ doubt, isOpen, onClose, onReplyChang
                                                 <Pencil className="w-3 h-3" /> Edit
                                             </button>
                                             <button
-                                                onClick={(e) = aria-label="button"> {
+                                                onClick={(e) => {
                                                     e.stopPropagation();
                                                     setReplyToDelete(reply.id);
                                                     setMenuOpenId(null);
@@ -433,12 +433,12 @@ export default function DoubtRepliesModal({ doubt, isOpen, onClose, onReplyChang
                         {editingId === reply.id && reply.type === 'comment' ? (
                             <div className="space-y-4 min-w-[240px] animate-in fade-in duration-200">
                                 <div className="flex items-center gap-2 mb-2">
-                                    <button onClick={() = aria-label="button"> insertMarkdown(editTextareaRef, "bold", setEditContent)} className="p-1.5 hover:bg-slate-200 dark:hover:bg-white/10 rounded text-slate-600 dark:text-slate-400"><Bold className="w-3.5 h-3.5" /></button>
-                                    <button onClick={() = aria-label="button"> insertMarkdown(editTextareaRef, "italic", setEditContent)} className="p-1.5 hover:bg-slate-200 dark:hover:bg-white/10 rounded text-slate-600 dark:text-slate-400"><Italic className="w-3.5 h-3.5" /></button>
-                                    <button onClick={() = aria-label="button"> insertMarkdown(editTextareaRef, "code", setEditContent)} className="p-1.5 hover:bg-slate-200 dark:hover:bg-white/10 rounded text-slate-600 dark:text-slate-400"><Code className="w-3.5 h-3.5" /></button>
+                                    <button onClick={() => insertMarkdown(editTextareaRef, "bold", setEditContent)} className="p-1.5 hover:bg-slate-200 dark:hover:bg-white/10 rounded text-slate-600 dark:text-slate-400"><Bold className="w-3.5 h-3.5" /></button>
+                                    <button onClick={() => insertMarkdown(editTextareaRef, "italic", setEditContent)} className="p-1.5 hover:bg-slate-200 dark:hover:bg-white/10 rounded text-slate-600 dark:text-slate-400"><Italic className="w-3.5 h-3.5" /></button>
+                                    <button onClick={() => insertMarkdown(editTextareaRef, "code", setEditContent)} className="p-1.5 hover:bg-slate-200 dark:hover:bg-white/10 rounded text-slate-600 dark:text-slate-400"><Code className="w-3.5 h-3.5" /></button>
                                     <div className="w-px h-4 bg-slate-200 dark:bg-white/10 mx-1" />
                                     <button 
-                                        onClick={() = aria-label="button"> setIsEditPreviewMode(!isEditPreviewMode)} 
+                                        onClick={() => setIsEditPreviewMode(!isEditPreviewMode)} 
                                         className={`flex items-center gap-1.5 px-2 py-1 rounded text-[10px] font-black uppercase transition-all ${isEditPreviewMode ? 'bg-blue-500 text-white' : 'hover:bg-white/10 text-slate-400'}`}
                                     >
                                         {isEditPreviewMode ? <EyeOff className="w-3 h-3" /> : <Eye className="w-3 h-3" />}
@@ -458,9 +458,9 @@ export default function DoubtRepliesModal({ doubt, isOpen, onClose, onReplyChang
                                     />
                                 )}
                                 <div className="flex gap-2 justify-end">
-                                    <button onClick={() = aria-label="button"> setEditingId(null)} disabled={isEditingReply} className="px-4 py-2 text-[10px] font-black uppercase text-slate-500 dark:text-slate-500 hover:text-slate-900 dark:hover:text-white disabled:opacity-50">Cancel</button>
+                                    <button onClick={() => setEditingId(null)} disabled={isEditingReply} className="px-4 py-2 text-[10px] font-black uppercase text-slate-500 dark:text-slate-500 hover:text-slate-900 dark:hover:text-white disabled:opacity-50">Cancel</button>
                                     <button
-                                        onClick={() = aria-label="button"> handleEditReply(reply.id)}
+                                        onClick={() => handleEditReply(reply.id)}
                                         disabled={isEditingReply || !editContent.trim()}
                                         className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-[10px] font-black uppercase shadow-lg shadow-blue-900/40 disabled:opacity-50 flex items-center gap-2"
                                     >
@@ -489,7 +489,7 @@ export default function DoubtRepliesModal({ doubt, isOpen, onClose, onReplyChang
                                             </div>
                                             <button
                                                 type="button"
-                                                onClick={(e) = aria-label="button"> { e.stopPropagation(); window.open(reply.imageUrl!, "_blank"); }}
+                                                onClick={(e) => { e.stopPropagation(); window.open(reply.imageUrl!, "_blank"); }}
                                                 className="p-2.5 bg-red-500/10 hover:bg-red-500 hover:text-slate-900 dark:hover:text-white text-red-400 rounded-xl transition-all border border-red-500/20 text-[10px] font-bold uppercase tracking-wider flex items-center gap-1.5 shrink-0"
                                                 title="Open PDF in new tab"
                                             >
@@ -499,7 +499,7 @@ export default function DoubtRepliesModal({ doubt, isOpen, onClose, onReplyChang
                                     ) : (
                                         <button
                                             type="button"
-                                            onClick={() = aria-label="button"> { setFullscreenImageUrl(reply.imageUrl!); setIsFullscreenImageOpen(true); }}
+                                            onClick={() => { setFullscreenImageUrl(reply.imageUrl!); setIsFullscreenImageOpen(true); }}
                                             className="mt-2 rounded-2xl overflow-hidden border border-slate-200 dark:border-white/5 group/img relative cursor-zoom-in active:scale-[0.98] transition-all w-full"
                                             aria-label="View image fullscreen"
                                         >
@@ -517,7 +517,7 @@ export default function DoubtRepliesModal({ doubt, isOpen, onClose, onReplyChang
                     {/* Vote Action */}
                     <div className="mt-4 flex items-center justify-end">
                         <button
-                            onClick={() = aria-label="button"> handleVote(reply.id)}
+                            onClick={() => handleVote(reply.id)}
                             className={`flex items-center gap-2 px-3 py-1.5 rounded-xl border transition-all active:scale-95 group/vote ${ reply.hasUpvoted ? "bg-blue-600/20 text-blue-400 border-blue-500/30 shadow-lg shadow-blue-500/10" : "bg-white/5 text-slate-500 border-white/5 hover:text-white hover:bg-white/10" }`}
                         >
                             <ThumbsUp
@@ -568,7 +568,7 @@ export default function DoubtRepliesModal({ doubt, isOpen, onClose, onReplyChang
                 {doubt.type !== 'teacher' && (
                     <div className="px-5 sm:px-8 border-b border-slate-200 dark:border-white/5 flex gap-6 sm:gap-8 h-14 bg-white/[0.01] overflow-x-auto whitespace-nowrap scrollbar-hide">
                         <button
-                            onClick={() = aria-label="button"> setActiveTab('all')}
+                            onClick={() => setActiveTab('all')}
                             className={`relative flex items-center gap-2 text-[10px] font-black uppercase tracking-widest transition-all ${ activeTab === 'all' ? 'text-blue-500' : 'text-slate-500 hover:text-slate-300' }`}
                         >
                             All Chat
@@ -578,7 +578,7 @@ export default function DoubtRepliesModal({ doubt, isOpen, onClose, onReplyChang
                             {activeTab === 'all' && <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-500 animate-in fade-in slide-in-from-bottom-1" />}
                         </button>
                         <button
-                            onClick={() = aria-label="button"> setActiveTab('chat')}
+                            onClick={() => setActiveTab('chat')}
                             className={`relative flex items-center gap-2 text-[10px] font-black uppercase tracking-widest transition-all ${ activeTab === 'chat' ? 'text-blue-500' : 'text-slate-500 hover:text-slate-300' }`}
                         >
                             General Chat
@@ -588,7 +588,7 @@ export default function DoubtRepliesModal({ doubt, isOpen, onClose, onReplyChang
                             {activeTab === 'chat' && <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-500 animate-in fade-in slide-in-from-bottom-1" />}
                         </button>
                         <button
-                            onClick={() = aria-label="button"> setActiveTab('solutions')}
+                            onClick={() => setActiveTab('solutions')}
                             className={`relative flex items-center gap-2 text-[10px] font-black uppercase tracking-widest transition-all ${ activeTab === 'solutions' ? 'text-emerald-500' : 'text-slate-500 hover:text-slate-300' }`}
                         >
                             All Solutions
@@ -702,7 +702,7 @@ export default function DoubtRepliesModal({ doubt, isOpen, onClose, onReplyChang
                                     </div>
                                 </div>
                                 <button
-                                    onClick={() = aria-label="button"> {
+                                    onClick={() => {
                                         setShowSolutionForm(false);
                                         setEditingId(null);
                                         setSolutionContent("");
@@ -716,13 +716,13 @@ export default function DoubtRepliesModal({ doubt, isOpen, onClose, onReplyChang
                                 </button>
                             </div>
                             <div className="flex items-center gap-2 mb-2">
-                                <button onClick={() = aria-label="button"> insertMarkdown(solutionTextareaRef, "bold", setSolutionContent)} className="p-2 hover:bg-slate-200 dark:hover:bg-white/10 rounded-xl text-slate-600 dark:text-slate-400"><Bold className="w-4 h-4" /></button>
-                                <button onClick={() = aria-label="button"> insertMarkdown(solutionTextareaRef, "italic", setSolutionContent)} className="p-2 hover:bg-slate-200 dark:hover:bg-white/10 rounded-xl text-slate-600 dark:text-slate-400"><Italic className="w-4 h-4" /></button>
-                                <button onClick={() = aria-label="button"> insertMarkdown(solutionTextareaRef, "code", setSolutionContent)} className="p-2 hover:bg-slate-200 dark:hover:bg-white/10 rounded-xl text-slate-600 dark:text-slate-400"><Code className="w-4 h-4" /></button>
-                                <button onClick={() = aria-label="button"> insertMarkdown(solutionTextareaRef, "list", setSolutionContent)} className="p-2 hover:bg-slate-200 dark:hover:bg-white/10 rounded-xl text-slate-600 dark:text-slate-400"><List className="w-4 h-4" /></button>
+                                <button onClick={() => insertMarkdown(solutionTextareaRef, "bold", setSolutionContent)} className="p-2 hover:bg-slate-200 dark:hover:bg-white/10 rounded-xl text-slate-600 dark:text-slate-400"><Bold className="w-4 h-4" /></button>
+                                <button onClick={() => insertMarkdown(solutionTextareaRef, "italic", setSolutionContent)} className="p-2 hover:bg-slate-200 dark:hover:bg-white/10 rounded-xl text-slate-600 dark:text-slate-400"><Italic className="w-4 h-4" /></button>
+                                <button onClick={() => insertMarkdown(solutionTextareaRef, "code", setSolutionContent)} className="p-2 hover:bg-slate-200 dark:hover:bg-white/10 rounded-xl text-slate-600 dark:text-slate-400"><Code className="w-4 h-4" /></button>
+                                <button onClick={() => insertMarkdown(solutionTextareaRef, "list", setSolutionContent)} className="p-2 hover:bg-slate-200 dark:hover:bg-white/10 rounded-xl text-slate-600 dark:text-slate-400"><List className="w-4 h-4" /></button>
                                 <div className="w-px h-6 bg-slate-200 dark:bg-white/10 mx-2" />
                                 <button 
-                                    onClick={() = aria-label="button"> setIsPreviewMode(!isPreviewMode)} 
+                                    onClick={() => setIsPreviewMode(!isPreviewMode)} 
                                     className={`flex items-center gap-2 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${isPreviewMode ? 'bg-emerald-500 text-white' : 'bg-white/5 hover:bg-white/10 text-slate-400'}`}
                                 >
                                     {isPreviewMode ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
@@ -759,7 +759,7 @@ export default function DoubtRepliesModal({ doubt, isOpen, onClose, onReplyChang
                                             </div>
                                             <button
                                                 type="button"
-                                                onClick={() = aria-label="button"> { setSolutionImage(""); setFileName(""); }}
+                                                onClick={() => { setSolutionImage(""); setFileName(""); }}
                                                 className="p-2.5 bg-red-500/10 hover:bg-red-500 hover:text-slate-900 dark:hover:text-white text-red-400 rounded-xl transition-all border border-red-500/20 text-xs font-bold uppercase tracking-wider shrink-0"
                                                 title="Remove PDF"
                                             >
@@ -781,7 +781,7 @@ export default function DoubtRepliesModal({ doubt, isOpen, onClose, onReplyChang
                                             <div className="absolute inset-0 bg-emerald-500/10 opacity-0 group-hover/img:opacity-100 flex items-center justify-center gap-3 transition-all duration-300">
                                                 <button
                                                     type="button"
-                                                    onClick={() = aria-label="button"> {
+                                                    onClick={() => {
                                                         setFullscreenImageUrl(
                                                             solutionImage,
                                                         );
@@ -794,7 +794,7 @@ export default function DoubtRepliesModal({ doubt, isOpen, onClose, onReplyChang
                                                 </button>
                                                 <button
                                                     type="button"
-                                                    onClick={() = aria-label="button"> { setSolutionImage(""); setFileName(""); }}
+                                                    onClick={() => { setSolutionImage(""); setFileName(""); }}
                                                     className="w-10 h-10 bg-red-500/20 hover:bg-red-500 backdrop-blur-md rounded-xl flex items-center justify-center text-white transition-all scale-75 group-hover/img:scale-100 border border-red-500/20 hover:border-transparent"
                                                     aria-label="Delete image"
                                                 >
@@ -836,7 +836,7 @@ export default function DoubtRepliesModal({ doubt, isOpen, onClose, onReplyChang
                         <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full">
                             {(doubt.isSolved !== "solved" && (doubt.type !== 'teacher' || isTeacher)) && (
                                 <button
-                                    onClick={() = aria-label="button"> setShowSolutionForm(true)}
+                                    onClick={() => setShowSolutionForm(true)}
                                     className="px-6 py-4 bg-emerald-600 hover:bg-emerald-700 text-white rounded-2xl transition-all group flex items-center justify-center gap-2 active:scale-95 shrink-0 shadow-lg shadow-emerald-600/20"
                                 >
                                     <PlusCircle className="w-5 h-5 group-hover:scale-110 transition-transform" />
@@ -864,14 +864,14 @@ export default function DoubtRepliesModal({ doubt, isOpen, onClose, onReplyChang
                                         />
                                         <div className="absolute right-2 top-2 flex items-center gap-1">
                                             <button 
-                                                onClick={() = aria-label="button"> setIsChatPreviewMode(!isChatPreviewMode)}
+                                                onClick={() => setIsChatPreviewMode(!isChatPreviewMode)}
                                                 className="p-2 hover:bg-slate-200 dark:hover:bg-white/10 rounded-xl text-slate-500 dark:text-slate-500 hover:text-slate-900 dark:hover:text-white transition-all"
                                                 title="Preview Markdown"
                                             >
                                                 <Eye className="w-4 h-4" />
                                             </button>
                                             <button 
-                                                onClick={() = aria-label="button"> handlePost('comment')}
+                                                onClick={() => handlePost('comment')}
                                                 disabled={isPosting || !chatText.trim()}
                                                 className="p-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl transition-all disabled:opacity-50"
                                             >
@@ -882,7 +882,7 @@ export default function DoubtRepliesModal({ doubt, isOpen, onClose, onReplyChang
                                 )}
                                 {isChatPreviewMode && (
                                     <button 
-                                        onClick={() = aria-label="button"> setIsChatPreviewMode(false)}
+                                        onClick={() => setIsChatPreviewMode(false)}
                                         className="text-[10px] font-black uppercase text-blue-500 hover:text-blue-400 self-start px-2"
                                     >
                                         Back to Edit
@@ -902,7 +902,7 @@ export default function DoubtRepliesModal({ doubt, isOpen, onClose, onReplyChang
                     onClick={() => setIsFullscreenImageOpen(false)}
                 >
                     <button
-                        onClick={() = aria-label="button"> setIsFullscreenImageOpen(false)}
+                        onClick={() => setIsFullscreenImageOpen(false)}
                         className="absolute top-8 right-8 p-4 bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:hover:bg-white/10 rounded-full text-slate-900 dark:text-white transition-all hover:rotate-90 z-[210]"
                         aria-label="Close fullscreen view"
                     >

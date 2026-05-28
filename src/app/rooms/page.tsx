@@ -149,14 +149,14 @@ export default function RoomsPage() {
                     <div className="flex items-center gap-4 shrink-0">
                         {appUser?.role === 'teacher' || appUser?.role === 'admin' ? (
                             <button 
-                                onClick={() = aria-label="button"> setIsCreateModalOpen(true)}
+                                onClick={() => setIsCreateModalOpen(true)}
                                 className="group flex items-center gap-3 px-6 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold uppercase tracking-wider text-xs transition-all duration-300 shadow-lg shadow-blue-600/10 active:scale-[0.98]"
                             >
                                 <Plus className="w-5 h-5 group-hover:rotate-90 transition-transform duration-300" /> New Class
                             </button>
                         ) : (
                             <button 
-                                onClick={() = aria-label="button"> setIsJoinModalOpen(true)}
+                                onClick={() => setIsJoinModalOpen(true)}
                                 className="group flex items-center gap-3 px-6 py-4 bg-slate-50 dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 text-slate-700 dark:text-zinc-300 hover:bg-slate-100 dark:hover:bg-zinc-800/60 rounded-xl font-bold uppercase tracking-wider text-xs transition-all duration-300"
                             >
                                 <LinkIcon className="w-4 h-4" /> Join Code
@@ -185,7 +185,7 @@ export default function RoomsPage() {
                             {appUser?.role === 'teacher' ? " Create your first classroom to get started." : " Ask your teacher for the invite code to join."}
                         </p>
                         <button 
-                            onClick={() = aria-label="button"> appUser?.role === 'teacher' ? setIsCreateModalOpen(true) : setIsJoinModalOpen(true)}
+                            onClick={() => appUser?.role === 'teacher' ? setIsCreateModalOpen(true) : setIsJoinModalOpen(true)}
                             className="text-blue-600 dark:text-blue-400 font-bold uppercase tracking-wider text-xs flex items-center gap-2 mx-auto hover:gap-3 transition-all duration-300"
                         >
                             {appUser?.role === 'teacher' ? "Launch Classroom" : "Enter Invitation Code"} <ArrowRight className="w-4 h-4" />
@@ -259,7 +259,7 @@ export default function RoomsPage() {
                             <div className="flex gap-3 pt-2">
                                 <button 
                                     type="button" 
-                                    onClick={() = aria-label="button"> setIsCreateModalOpen(false)}
+                                    onClick={() => setIsCreateModalOpen(false)}
                                     className="flex-1 py-3.5 rounded-xl font-bold uppercase tracking-wider text-xs text-slate-500 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-white transition-colors border border-transparent"
                                 >
                                     Cancel
@@ -303,7 +303,7 @@ export default function RoomsPage() {
                             <div className="flex gap-3 pt-2">
                                 <button 
                                     type="button" 
-                                    onClick={() = aria-label="button"> setIsJoinModalOpen(false)}
+                                    onClick={() => setIsJoinModalOpen(false)}
                                     className="flex-1 py-3.5 rounded-xl font-bold uppercase tracking-wider text-xs text-slate-500 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-white transition-colors border border-transparent"
                                 >
                                     Cancel

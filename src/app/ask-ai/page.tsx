@@ -201,7 +201,7 @@ export default function AskAIPage() {
                         </span>
                         <span className="text-[15px] font-black text-slate-900 dark:text-white tracking-tight leading-tight">{label}</span>
                         <button 
-                            onClick={() = aria-label="button"> handleStepFollowUp(num, label)}
+                            onClick={() => handleStepFollowUp(num, label)}
                             className="ml-auto opacity-0 group-hover/step:opacity-100 flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-white/5 hover:bg-cyan-500/10 border border-slate-200 dark:border-white/5 hover:border-cyan-500/30 text-[10px] font-black text-slate-600 dark:text-slate-400 hover:text-cyan-400 transition-all uppercase tracking-wider"
                         >
                             <MessageSquare className="w-3 h-3" /> Ask about this
@@ -272,7 +272,7 @@ export default function AskAIPage() {
 
             <main className="flex-1 flex flex-col min-w-0">
                 <header className="flex lg:hidden items-center gap-3 px-4 py-3 border-b border-slate-200 dark:border-white/5 bg-white/80 dark:bg-black/80 backdrop-blur-xl sticky top-0 z-20">
-                    <button onClick={() = aria-label="button"> setIsSidebarOpen(true)} className="p-2 hover:bg-slate-100 dark:hover:bg-white/5 rounded-lg" aria-label="Open sidebar">
+                    <button onClick={() => setIsSidebarOpen(true)} className="p-2 hover:bg-slate-100 dark:hover:bg-white/5 rounded-lg" aria-label="Open sidebar">
                         <div className="w-5 h-0.5 bg-white mb-1 rounded" /><div className="w-5 h-0.5 bg-white mb-1 rounded" /><div className="w-5 h-0.5 bg-white rounded" />
                     </button>
                     <div className="w-8 h-8 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-lg flex items-center justify-center">
@@ -324,13 +324,13 @@ export default function AskAIPage() {
 
                         <div className="flex border-b border-slate-200 dark:border-white/5">
                             <button
-                                onClick={() = aria-label="button"> { setInputMode('text'); setImageBase64(null); }}
+                                onClick={() => { setInputMode('text'); setImageBase64(null); }}
                                 className={`flex-1 flex items-center justify-center gap-2 py-4 text-sm font-bold transition-all ${inputMode === 'text' ? 'text-cyan-400 border-b-2 border-cyan-500 bg-cyan-500/5' : 'text-slate-500 hover:text-slate-300'}`}
                             >
                                 <Type className="w-4 h-4" /> Type Question
                             </button>
                             <button
-                                onClick={() = aria-label="button"> { setInputMode('image'); setPrompt(''); }}
+                                onClick={() => { setInputMode('image'); setPrompt(''); }}
                                 className={`flex-1 flex items-center justify-center gap-2 py-4 text-sm font-bold transition-all ${inputMode === 'image' ? 'text-purple-400 border-b-2 border-purple-500 bg-purple-500/5' : 'text-slate-500 hover:text-slate-300'}`}
                             >
                                 <Camera className="w-4 h-4" /> Upload Image
@@ -355,7 +355,7 @@ export default function AskAIPage() {
                                         {EXAMPLE_PROMPTS.map((ex) => (
                                             <button
                                                 key={ex}
-                                                onClick={() = aria-label="button"> setPrompt(ex)}
+                                                onClick={() => setPrompt(ex)}
                                                 className="text-xs text-slate-600 dark:text-slate-400 hover:text-cyan-400 px-3 py-1.5 rounded-xl bg-white/4 hover:bg-cyan-500/10 border border-slate-200 dark:border-white/5 hover:border-cyan-500/30 transition-all"
                                             >
                                                 {ex.length > 40 ? ex.slice(0, 40) + '…' : ex}
@@ -368,7 +368,7 @@ export default function AskAIPage() {
                                     <input type="file" accept="image/*" className="hidden" ref={fileInputRef} onChange={handleImageUpload} />
                                     {!imageBase64 ? (
                                         <button
-                                            onClick={() = aria-label="button"> fileInputRef.current?.click()}
+                                            onClick={() => fileInputRef.current?.click()}
                                             className="w-full h-44 border-2 border-dashed border-slate-200 dark:border-white/10 rounded-2xl flex flex-col items-center justify-center gap-3 hover:border-purple-500/50 hover:bg-purple-500/5 transition-all group"
                                         >
                                             <div className="w-14 h-14 bg-purple-500/10 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform border border-purple-500/20">
@@ -383,7 +383,7 @@ export default function AskAIPage() {
                                         <div className="relative rounded-2xl overflow-hidden border border-slate-200 dark:border-white/10 bg-white dark:bg-black">
                                             <img src={imageBase64} alt="Uploaded question" className="w-full max-h-64 object-contain" />
                                             <button
-                                                onClick={() = aria-label="button"> { setImageBase64(null); if (fileInputRef.current) fileInputRef.current.value = ''; }}
+                                                onClick={() => { setImageBase64(null); if (fileInputRef.current) fileInputRef.current.value = ''; }}
                                                 className="absolute top-3 right-3 w-8 h-8 bg-red-500/90 hover:bg-red-500 rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform"
                                                 aria-label="Remove image"
                                             >
@@ -411,7 +411,7 @@ export default function AskAIPage() {
                             
                             <div className="flex justify-end pt-1">
                                 <button
-                                    onClick={() = aria-label="button"> handleAskAI('standard')}
+                                    onClick={() => handleAskAI('standard')}
                                     disabled={isLoading || !canSubmit}
                                     className="flex items-center gap-2.5 px-7 py-3 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-slate-900 dark:text-white rounded-2xl font-black uppercase tracking-widest text-sm transition-all shadow-xl shadow-cyan-500/20 disabled:opacity-40 disabled:cursor-not-allowed group/btn"
                                 >
@@ -476,7 +476,7 @@ export default function AskAIPage() {
                                         return "Something unexpected happened 😓 Please try again.";
                                     })()}
                                 </p>
-                                <button onClick={() = aria-label="button"> window.location.reload()}
+                                <button onClick={() => window.location.reload()}
                                     className="mt-3 px-3 py-1 rounded-lg bg-red-500 text-white text-xs hover:bg-red-600 transition">
                                     Retry
                                 </button>
@@ -566,7 +566,7 @@ export default function AskAIPage() {
                                             </div>
                                             <span className="text-[11px] font-bold text-cyan-400/80 uppercase tracking-wider">Discussing: {activeStepContext.label}</span>
                                             <button 
-                                                onClick={() = aria-label="button"> { setActiveStepContext(null); setFollowUpPrompt(''); }}
+                                                onClick={() => { setActiveStepContext(null); setFollowUpPrompt(''); }}
                                                 className="ml-2 hover:bg-slate-100 dark:hover:bg-white/5 p-1 rounded-md transition-colors"
                                                 aria-label="Clear context"
                                             >
@@ -587,7 +587,7 @@ export default function AskAIPage() {
                                             />
                                         </div>
                                         <button
-                                            onClick={() = aria-label="button"> handleAskAI('standard', true)}
+                                            onClick={() => handleAskAI('standard', true)}
                                             disabled={isLoading || !followUpPrompt.trim()}
                                             className="p-3 bg-cyan-600 hover:bg-cyan-500 text-white rounded-xl shadow-lg shadow-cyan-500/20 transition-all disabled:opacity-40"
                                             aria-label="Send follow-up"
@@ -620,7 +620,7 @@ export default function AskAIPage() {
                                     </div>
                                     <div className="flex gap-3 sm:ml-auto flex-wrap">
                                         <button
-                                            onClick={() = aria-label="button"> handleAskAI('standard')}
+                                            onClick={() => handleAskAI('standard')}
                                             disabled={isLoading}
                                             className="flex items-center gap-2 px-4 py-2 bg-yellow-500/10 hover:bg-yellow-500/20 text-yellow-400 rounded-xl border border-yellow-500/20 hover:border-yellow-500/40 transition-all text-xs font-bold uppercase tracking-wider disabled:opacity-50"
                                         >
@@ -637,7 +637,7 @@ export default function AskAIPage() {
                                             )}
                                         </button>
                                         <button
-                                            onClick={() = aria-label="button"> handleAskAI('standard')}
+                                            onClick={() => handleAskAI('standard')}
                                             disabled={isLoading}
                                             className="flex items-center gap-2 px-4 py-2 bg-purple-500/10 hover:bg-purple-500/20 text-purple-400 rounded-xl border border-purple-500/20 hover:border-purple-500/40 transition-all text-xs font-bold uppercase tracking-wider disabled:opacity-50"
                                         >

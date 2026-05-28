@@ -130,7 +130,7 @@ export default function RecommendedClassrooms() {
                                 </div>
                             </div>
 
-                            <button className="rounded-lg bg-black px-4 py-2 text-sm text-white hover:opacity-90" aria-label="button">
+                            <button className="rounded-lg bg-black px-4 py-2 text-sm text-white hover:opacity-90" >
                                 Join
                             </button>
                         </div>

@@ -64,12 +64,12 @@ export default function Header() {
           
           <SignedOut>
             <Link href="/sign-in">
-              <button className="px-4 py-2 bg-white dark:bg-zinc-900 hover:bg-slate-100 dark:hover:bg-zinc-800 text-slate-700 dark:text-zinc-200 rounded-xl text-sm font-semibold border border-slate-200 dark:border-zinc-800 transition-all duration-300 hover:shadow-sm" aria-label="button">
+              <button className="px-4 py-2 bg-white dark:bg-zinc-900 hover:bg-slate-100 dark:hover:bg-zinc-800 text-slate-700 dark:text-zinc-200 rounded-xl text-sm font-semibold border border-slate-200 dark:border-zinc-800 transition-all duration-300 hover:shadow-sm" >
                 Sign In
               </button>
             </Link>
             <Link href="/sign-up">
-              <button className="px-4 py-2 bg-blue-600 dark:bg-[#5E8CFF] hover:bg-blue-700 dark:hover:bg-[#8BB8FF] text-white rounded-xl text-sm font-semibold shadow-md shadow-blue-500/10 dark:shadow-[#5E8CFF]/10 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]" aria-label="button">
+              <button className="px-4 py-2 bg-blue-600 dark:bg-[#5E8CFF] hover:bg-blue-700 dark:hover:bg-[#8BB8FF] text-white rounded-xl text-sm font-semibold shadow-md shadow-blue-500/10 dark:shadow-[#5E8CFF]/10 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]" >
                 Join DoubtDesk
               </button>
             </Link>
@@ -106,7 +106,7 @@ export default function Header() {
         <div className="flex md:hidden items-center gap-3 relative z-50">
           <ThemeToggle />
           <button
-            onClick={() = aria-label="button"> setIsOpen(!isOpen)}
+            onClick={() => setIsOpen(!isOpen)}
             className="p-2 text-slate-700 dark:text-zinc-300 hover:bg-slate-100 dark:hover:bg-zinc-900 rounded-xl transition-colors outline-none"
             aria-label="Toggle navigation menu"
           >
@@ -164,12 +164,12 @@ export default function Header() {
         <div className="mt-auto w-full flex flex-col gap-3 pb-8">
           <SignedOut>
             <Link href="/sign-in" onClick={() => setIsOpen(false)} className="w-full">
-              <button className="w-full py-3.5 border border-slate-200 dark:border-zinc-800 text-slate-800 dark:text-zinc-200 font-bold bg-transparent rounded-2xl transition-all text-sm" aria-label="button">
+              <button className="w-full py-3.5 border border-slate-200 dark:border-zinc-800 text-slate-800 dark:text-zinc-200 font-bold bg-transparent rounded-2xl transition-all text-sm" >
                 Sign In
               </button>
             </Link>
             <Link href="/sign-up" onClick={() => setIsOpen(false)} className="w-full">
-              <button className="w-full py-3.5 bg-blue-600 text-white font-bold rounded-2xl transition-all shadow-lg shadow-blue-500/10 text-sm" aria-label="button">
+              <button className="w-full py-3.5 bg-blue-600 text-white font-bold rounded-2xl transition-all shadow-lg shadow-blue-500/10 text-sm" >
                 Join DoubtDesk
               </button>
             </Link>

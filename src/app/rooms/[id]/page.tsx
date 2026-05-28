@@ -199,7 +199,7 @@ export default function ClassroomPage() {
                 <div className="max-w-7xl mx-auto relative z-10 space-y-4">
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                         <button
-                            onClick={() = aria-label="button"> router.push("/rooms")}
+                            onClick={() => router.push("/rooms")}
                             className="flex items-center gap-2 text-slate-500 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-white transition-colors text-xs font-bold uppercase tracking-wider w-fit shrink-0"
                         >
                             <ChevronLeft className="w-4 h-4" /> Back to Campus
@@ -212,7 +212,7 @@ export default function ClassroomPage() {
                                 isTeacher={classroom?.role === "teacher"} 
                             />
                             <button
-                                onClick={() = aria-label="button"> setIsCodeModalOpen(true)}
+                                onClick={() => setIsCodeModalOpen(true)}
                                 className="flex items-center gap-2 px-4 py-2 bg-slate-50 dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-xl text-[11px] font-bold uppercase tracking-wider text-slate-600 dark:text-zinc-400 hover:bg-slate-100 dark:hover:bg-zinc-800/60 hover:text-slate-900 dark:hover:text-white transition-all duration-300 shadow-sm shrink-0"
                             >
                                 <Sparkles className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" /> Class Code
@@ -248,7 +248,7 @@ export default function ClassroomPage() {
                             ].map((tab) => (
                                 <button
                                     key={tab.id}
-                                    onClick={() = aria-label="button"> setActiveTab(tab.id)}
+                                    onClick={() => setActiveTab(tab.id)}
                                     className={`flex items-center gap-2.5 px-4 py-2 rounded-xl text-[11px] font-bold uppercase tracking-wider transition-all duration-300 border shrink-0 whitespace-nowrap ${ activeTab === tab.id ? "bg-purple-600 border-purple-500 text-white shadow-lg shadow-purple-600/10" : "bg-white dark:bg-zinc-950/20 border-slate-200 dark:border-zinc-900 text-slate-500 dark:text-zinc-400 hover:bg-slate-50 dark:hover:bg-zinc-900/40" }`}
                                 >
                                     <tab.icon className="w-4 h-4 shrink-0" /> {tab.label}
@@ -320,19 +320,19 @@ export default function ClassroomPage() {
 
                             <div className="flex items-center gap-1.5 bg-white dark:bg-zinc-900 p-1.5 rounded-xl border border-slate-200 dark:border-zinc-800">
                                 <button
-                                    onClick={() = aria-label="button"> setDoubtFilter('unsolved')}
+                                    onClick={() => setDoubtFilter('unsolved')}
                                     className={`px-4 py-2 rounded-lg text-[11px] font-bold uppercase tracking-wider transition-all duration-300 ${ doubtFilter === 'unsolved' ? "bg-red-500/10 text-red-600 dark:text-red-400 border border-red-500/20" : "text-slate-400 dark:text-zinc-500 hover:text-slate-900 dark:hover:text-zinc-200" }`}
                                 >
                                     Unsolved
                                 </button>
                                 <button
-                                    onClick={() = aria-label="button"> setDoubtFilter('in-progress')}
+                                    onClick={() => setDoubtFilter('in-progress')}
                                     className={`px-4 py-2 rounded-lg text-[11px] font-bold uppercase tracking-wider transition-all duration-300 ${ doubtFilter === 'in-progress' ? "bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20" : "text-slate-400 dark:text-zinc-500 hover:text-slate-900 dark:hover:text-zinc-200" }`}
                                 >
                                     In Progress
                                 </button>
                                 <button
-                                    onClick={() = aria-label="button"> setDoubtFilter('solved')}
+                                    onClick={() => setDoubtFilter('solved')}
                                     className={`px-4 py-2 rounded-lg text-[11px] font-bold uppercase tracking-wider transition-all duration-300 ${ doubtFilter === 'solved' ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20" : "text-slate-400 dark:text-zinc-500 hover:text-slate-900 dark:hover:text-zinc-200" }`}
                                 >
                                     Resolved
@@ -349,14 +349,14 @@ export default function ClassroomPage() {
                                 />
                                 {tagFilter && (
                                     <button
-                                        onClick={() = aria-label="button"> setTagFilter("")}
+                                        onClick={() => setTagFilter("")}
                                         className="text-[11px] font-bold uppercase tracking-wider text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
                                     >
                                         Clear
                                     </button>
                                 )}
                                 <button
-                                    onClick={() = aria-label="button"> setIsAskModalOpen(true)}
+                                    onClick={() => setIsAskModalOpen(true)}
                                     className="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold uppercase tracking-wider text-xs transition-all duration-300 shadow-md shadow-blue-600/10 flex items-center gap-2 shrink-0"
                                 >
                                     <Plus className="w-4 h-4" /> New Post
@@ -379,7 +379,7 @@ export default function ClassroomPage() {
                                 {["All", "Math", "Science", "Physics", "Chemistry", "Programming"].map((s) => (
                                     <button
                                         key={s}
-                                        onClick={() = aria-label="button"> setSubjectFilter(s)}
+                                        onClick={() => setSubjectFilter(s)}
                                         className={`px-4 py-2 rounded-xl text-[11px] font-bold uppercase tracking-wider transition-all border shrink-0 ${
                                             subjectFilter === s 
                                             ? "bg-blue-500/10 border-blue-500/20 text-blue-600 dark:text-blue-400" 
@@ -413,13 +413,13 @@ export default function ClassroomPage() {
                                 </div>
                                 {searchQuery ? (
                                     <button 
-                                        onClick={() = aria-label="button"> setSearchVal("")}
+                                        onClick={() => setSearchVal("")}
                                         className="px-5 py-2 bg-white dark:bg-zinc-900 text-slate-600 dark:text-zinc-400 hover:bg-slate-100 dark:hover:bg-zinc-800 border border-slate-200 dark:border-zinc-800 rounded-xl text-xs font-bold uppercase tracking-wider transition-all duration-300 mx-auto block shadow-sm"
                                     >
                                         Clear Search
                                     </button>
                                 ) : (
-                                    <button onClick={() = aria-label="button"> setIsAskModalOpen(true)} className="text-blue-600 dark:text-blue-400 font-bold uppercase tracking-wider text-xs hover:underline underline-offset-4 mx-auto block transition-all">Be the first to ask</button>
+                                    <button onClick={() => setIsAskModalOpen(true)} className="text-blue-600 dark:text-blue-400 font-bold uppercase tracking-wider text-xs hover:underline underline-offset-4 mx-auto block transition-all">Be the first to ask</button>
                                 )}
                             </div>
                         ) : (
@@ -495,19 +495,19 @@ export default function ClassroomPage() {
 
                             <div className="flex items-center gap-1.5 bg-white dark:bg-zinc-900 p-1.5 rounded-xl border border-slate-200 dark:border-zinc-800">
                                 <button
-                                    onClick={() = aria-label="button"> setDoubtFilter('unsolved')}
+                                    onClick={() => setDoubtFilter('unsolved')}
                                     className={`px-4 py-2 rounded-lg text-[11px] font-bold uppercase tracking-wider transition-all duration-300 ${ doubtFilter === 'unsolved' ? "bg-red-500/10 text-red-600 dark:text-red-400 border border-red-500/20" : "text-slate-400 dark:text-zinc-500 hover:text-slate-900 dark:hover:text-zinc-200" }`}
                                 >
                                     Unsolved
                                 </button>
                                 <button
-                                    onClick={() = aria-label="button"> setDoubtFilter('in-progress')}
+                                    onClick={() => setDoubtFilter('in-progress')}
                                     className={`px-4 py-2 rounded-lg text-[11px] font-bold uppercase tracking-wider transition-all duration-300 ${ doubtFilter === 'in-progress' ? "bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20" : "text-slate-400 dark:text-zinc-500 hover:text-slate-900 dark:hover:text-zinc-200" }`}
                                 >
                                     In Progress
                                 </button>
                                 <button
-                                    onClick={() = aria-label="button"> setDoubtFilter('solved')}
+                                    onClick={() => setDoubtFilter('solved')}
                                     className={`px-4 py-2 rounded-lg text-[11px] font-bold uppercase tracking-wider transition-all duration-300 ${ doubtFilter === 'solved' ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20" : "text-slate-400 dark:text-zinc-500 hover:text-slate-900 dark:hover:text-zinc-200" }`}
                                 >
                                     Resolved
@@ -524,7 +524,7 @@ export default function ClassroomPage() {
                                 />
                                 {tagFilter && (
                                     <button
-                                        onClick={() = aria-label="button"> setTagFilter("")}
+                                        onClick={() => setTagFilter("")}
                                         className="text-[11px] font-bold uppercase tracking-wider text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
                                     >
                                         Clear
@@ -532,7 +532,7 @@ export default function ClassroomPage() {
                                 )}
                                 {classroom?.role !== 'teacher' && (
                                     <button
-                                        onClick={() = aria-label="button"> setIsAskModalOpen(true)}
+                                        onClick={() => setIsAskModalOpen(true)}
                                         className="px-5 py-2.5 bg-purple-600 hover:bg-purple-700 text-white rounded-xl font-bold uppercase tracking-wider text-xs transition-all duration-300 shadow-md shadow-purple-600/10 flex items-center gap-2 shrink-0"
                                     >
                                         <Plus className="w-4 h-4" /> Ask Teacher
@@ -556,7 +556,7 @@ export default function ClassroomPage() {
                                 {["All", "Math", "Science", "Physics", "Chemistry", "Programming"].map((s) => (
                                     <button
                                         key={s}
-                                        onClick={() = aria-label="button"> setSubjectFilter(s)}
+                                        onClick={() => setSubjectFilter(s)}
                                         className={`px-4 py-2 rounded-xl text-[11px] font-bold uppercase tracking-wider transition-all border shrink-0 ${
                                             subjectFilter === s 
                                             ? "bg-purple-500/10 border-purple-500/20 text-purple-600 dark:text-purple-400" 
@@ -593,7 +593,7 @@ export default function ClassroomPage() {
                                                         {classroom?.role === 'teacher' ? "No unsolved doubts from students." : "No unsolved teacher doubts."}
                                                     </p>
                                                     {classroom?.role !== 'teacher' && (
-                                                        <button onClick={() = aria-label="button"> setIsAskModalOpen(true)} className="text-purple-600 dark:text-purple-400 font-bold uppercase tracking-wider text-xs hover:underline underline-offset-4">Send the first query</button>
+                                                        <button onClick={() => setIsAskModalOpen(true)} className="text-purple-600 dark:text-purple-400 font-bold uppercase tracking-wider text-xs hover:underline underline-offset-4">Send the first query</button>
                                                     )}
                                                 </div>
                                             )}
@@ -680,7 +680,7 @@ export default function ClassroomPage() {
                                 <p className="text-slate-400 dark:text-zinc-500 font-bold uppercase tracking-wider text-[10px]">Invite your students</p>
                             </div>
                             <button
-                                onClick={() = aria-label="button"> setIsCodeModalOpen(false)}
+                                onClick={() => setIsCodeModalOpen(false)}
                                 className="p-1.5 text-slate-400 dark:text-zinc-500 hover:text-slate-900 dark:hover:text-white transition-colors"
                                 aria-label="Close modal"
                             >
@@ -952,7 +952,7 @@ function ClassroomInsightsView({ classroomId, role }: { classroomId: number, rol
                                         {topic.suggestion}
                                     </p>
                                     <div className="pt-1">
-                                        <button className="text-[10px] font-bold uppercase tracking-wider text-purple-600 dark:text-purple-400 flex items-center gap-1 hover:gap-2 transition-all duration-300" aria-label="button">
+                                        <button className="text-[10px] font-bold uppercase tracking-wider text-purple-600 dark:text-purple-400 flex items-center gap-1 hover:gap-2 transition-all duration-300" >
                                             Prepare Revision Materials <ArrowRight className="w-3 h-3" />
                                         </button>
                                     </div>

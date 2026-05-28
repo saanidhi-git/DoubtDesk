@@ -147,7 +147,7 @@ export default function PublicRoomsPage() {
                     </p>
                 </div>
                 <button
-                    onClick={() = aria-label="button"> setIsAskModalOpen(true)}
+                    onClick={() => setIsAskModalOpen(true)}
                     className="flex items-center gap-3 px-6 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold uppercase tracking-wider text-xs transition-all duration-300 shadow-lg shadow-blue-600/10 active:scale-[0.98] shrink-0"
                 >
                     <Plus className="w-5 h-5" />
@@ -177,7 +177,7 @@ export default function PublicRoomsPage() {
                     {["All", "Math", "Science", "Physics", "Chemistry", "Programming", "Others"].map((f) => (
                         <button
                             key={f}
-                            onClick={() = aria-label="button"> {
+                            onClick={() => {
                                 setFilter(f);
                                 if (f !== "Others") {
                                     setCustomFilter("");
@@ -210,7 +210,7 @@ export default function PublicRoomsPage() {
                                 className="bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-xl px-3 py-2 text-[11px] font-medium text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-zinc-600 focus:outline-none focus:border-blue-500 transition-all w-36"
                             />
                             <button 
-                                onClick={() = aria-label="button"> setAppliedCustomFilter(customFilter)}
+                                onClick={() => setAppliedCustomFilter(customFilter)}
                                 className="px-3 py-2 bg-blue-500/10 text-blue-600 dark:text-blue-400 hover:bg-blue-600 hover:text-white border border-blue-500/20 rounded-xl text-[10px] font-bold uppercase tracking-wider transition-all"
                             >
                                 Apply
@@ -252,7 +252,7 @@ export default function PublicRoomsPage() {
                     ] as const).map((s) => (
                         <button
                             key={s.key}
-                            onClick={() = aria-label="button"> setStatusFilter(s.key)}
+                            onClick={() => setStatusFilter(s.key)}
                             className={`px-4 py-2 rounded-xl text-[11px] font-bold uppercase tracking-wider transition-all duration-300 border shrink-0 ${
                                 statusFilter === s.key
                                     ? s.active
@@ -287,7 +287,7 @@ export default function PublicRoomsPage() {
                         No doubts matching this status filter.
                     </p>
                     <button
-                        onClick={() = aria-label="button"> setStatusFilter('all')}
+                        onClick={() => setStatusFilter('all')}
                         className="px-5 py-2 bg-white dark:bg-zinc-900 text-slate-600 dark:text-zinc-400 hover:bg-blue-600 hover:text-white border border-slate-200 dark:border-zinc-800 rounded-xl text-[11px] font-bold uppercase tracking-wider transition-all duration-300 shadow-sm"
                     >
                         Show all
@@ -340,14 +340,14 @@ export default function PublicRoomsPage() {
                     <div className="relative flex flex-col items-center gap-3">
                         {searchQuery ? (
                             <button
-                                onClick={() = aria-label="button"> setSearchVal("")}
+                                onClick={() => setSearchVal("")}
                                 className="flex items-center gap-3 px-6 py-3.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold uppercase tracking-wider text-xs transition-all duration-300 shadow-md shadow-blue-600/10 active:scale-[0.98]"
                             >
                                 Clear Search
                             </button>
                         ) : (
                             <button
-                                onClick={() = aria-label="button"> setIsAskModalOpen(true)}
+                                onClick={() => setIsAskModalOpen(true)}
                                 className="group flex items-center gap-3 px-6 py-3.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold uppercase tracking-wider text-xs transition-all duration-300 shadow-md shadow-blue-600/10 active:scale-[0.98]"
                             >
                                 <Plus className="w-4 h-4 group-hover:rotate-90 transition-transform duration-300" />

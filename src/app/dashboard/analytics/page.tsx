@@ -83,7 +83,7 @@ export default function AnalyticsDashboard() {
                 <h1 className="text-3xl font-black tracking-tight">Authentication Required</h1>
                 <p className="text-slate-500 dark:text-zinc-400 max-w-md text-sm font-medium">Please sign in to your instructor account to view learning metrics.</p>
                 <button 
-                    onClick={() = aria-label="button"> router.push("/sign-in")}
+                    onClick={() => router.push("/sign-in")}
                     className="px-6 py-3.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold uppercase tracking-wider text-xs shadow-lg shadow-blue-600/10 active:scale-[0.98]"
                 >
                     Sign In
@@ -99,7 +99,7 @@ export default function AnalyticsDashboard() {
                 <h1 className="text-3xl font-black tracking-tight">Access Denied</h1>
                 <p className="text-slate-500 dark:text-zinc-400 max-w-sm text-sm font-medium leading-relaxed">This space is dedicated to classroom teachers and platform administrators. If you believe this is an error, please update your account role from your profile.</p>
                 <button 
-                    onClick={() = aria-label="button"> router.push("/dashboard")}
+                    onClick={() => router.push("/dashboard")}
                     className="px-6 py-3.5 bg-slate-50 dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 text-slate-700 dark:text-zinc-300 hover:bg-slate-100 dark:hover:bg-zinc-800/60 rounded-xl font-bold uppercase tracking-wider text-xs"
                 >
                     Back to Student Feed
@@ -170,7 +170,7 @@ export default function AnalyticsDashboard() {
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6 border-b border-slate-100 dark:border-zinc-900/60">
                     <div className="space-y-2">
                         <button 
-                            onClick={() = aria-label="button"> router.push("/dashboard")} 
+                            onClick={() => router.push("/dashboard")} 
                             className="flex items-center gap-2 text-slate-500 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-white transition-colors text-xs font-bold uppercase tracking-wider group"
                         >
                             <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-1 transition-transform" /> 
@@ -235,7 +235,7 @@ export default function AnalyticsDashboard() {
                                 ].map((item) => (
                                     <button
                                         key={item.value}
-                                        onClick={() = aria-label="button"> setDateRange(item.value)}
+                                        onClick={() => setDateRange(item.value)}
                                         className={`px-4 py-2 text-[11px] font-bold uppercase tracking-wider rounded-lg transition-all duration-300 ${ dateRange === item.value ? "bg-purple-600 text-white shadow-md shadow-purple-600/10" : "text-slate-400 dark:text-zinc-500 hover:text-slate-900 dark:hover:text-zinc-200" }`}
                                     >
                                         {item.label}

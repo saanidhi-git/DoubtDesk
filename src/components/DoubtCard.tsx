@@ -255,7 +255,7 @@ export default function DoubtCard({ doubt, onUpdate, onViewAISolution, role, ope
                 <div className="mt-auto pt-6 border-t border-slate-200 dark:border-white/5 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
                     <div className="flex flex-wrap items-center gap-2.5 flex-1">
                         <button
-                            onClick={() = aria-label="button"> handleAction("like")}
+                            onClick={() => handleAction("like")}
                             disabled={isLiking}
                             className={`flex-1 sm:flex-none flex items-center justify-center gap-2.5 px-6 py-3 rounded-2xl transition-all group/btn ${ doubt.hasLiked ? "bg-blue-600/20 text-blue-400 border border-blue-500/30 shadow-lg shadow-blue-500/10" : "bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white border border-white/5" }`}
                         >
@@ -274,7 +274,7 @@ export default function DoubtCard({ doubt, onUpdate, onViewAISolution, role, ope
 
                         {((isOwner && doubt.type !== 'ai') || isTeacher) && doubt.isSolved !== "solved" && (
                             <button
-                                onClick={() = aria-label="button"> handleAction("solve")}
+                                onClick={() => handleAction("solve")}
                                 disabled={isSolving}
                                 className="flex-1 sm:flex-none flex items-center justify-center gap-3 px-6 py-3 bg-emerald-600/10 hover:bg-emerald-600 text-emerald-500 hover:text-slate-900 dark:hover:text-white rounded-2xl transition-all border border-emerald-500/20 active:scale-95 group/sol"
                             >
@@ -285,7 +285,7 @@ export default function DoubtCard({ doubt, onUpdate, onViewAISolution, role, ope
 
                         {doubt.isSolved === "solved" && (
                             <button
-                                onClick={() = aria-label="button"> {
+                                onClick={() => {
                                     if (doubt.type === 'ai' && onViewAISolution) {
                                         onViewAISolution(doubt);
                                     } else {
@@ -305,7 +305,7 @@ export default function DoubtCard({ doubt, onUpdate, onViewAISolution, role, ope
                             <div className="flex items-center gap-1.5 p-1.5 bg-slate-100 dark:bg-white/5 rounded-2xl border border-slate-200 dark:border-white/5 flex-1 sm:flex-none justify-center">
                                 {isOwner && (
                                     <button
-                                        onClick={() = aria-label="button"> setIsEditModalOpen(true)}
+                                        onClick={() => setIsEditModalOpen(true)}
                                         className="flex-1 sm:flex-none p-3 rounded-xl hover:bg-blue-600/20 text-slate-500 dark:text-slate-500 hover:text-blue-400 transition-all group/edit"
                                         aria-label="Edit doubt"
                                     >
@@ -313,7 +313,7 @@ export default function DoubtCard({ doubt, onUpdate, onViewAISolution, role, ope
                                     </button>
                                 )}
                                 <button
-                                    onClick={() = aria-label="button"> setIsDeleteDialogOpen(true)}
+                                    onClick={() => setIsDeleteDialogOpen(true)}
                                     className="flex-1 sm:flex-none p-3 rounded-xl hover:bg-red-500/20 text-slate-500 dark:text-slate-500 hover:text-red-400 transition-all group/trash"
                                     aria-label="Delete doubt"
                                 >
@@ -322,7 +322,7 @@ export default function DoubtCard({ doubt, onUpdate, onViewAISolution, role, ope
                             </div>
                         )}
                         <button
-                            onClick={() = aria-label="button"> setIsRepliesOpen(true)}
+                            onClick={() => setIsRepliesOpen(true)}
                             className="flex-1 sm:flex-none flex items-center justify-center gap-3 px-6 py-3 rounded-2xl bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:hover:bg-white/10 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all border border-slate-200 dark:border-white/5 active:scale-95 group/msg"
                         >
                             <MessageSquare className="w-5 h-5 group-hover/msg:scale-110 transition-transform" />
@@ -360,7 +360,7 @@ export default function DoubtCard({ doubt, onUpdate, onViewAISolution, role, ope
                 >
                     <button
                         className="absolute top-8 right-8 p-3 rounded-full bg-slate-200 dark:bg-white/10 hover:bg-white/20 text-slate-900 dark:text-white transition-all z-[110]"
-                        onClick={(e) = aria-label="button"> { e.stopPropagation(); setIsFullscreenImageOpen(false); }}
+                        onClick={(e) => { e.stopPropagation(); setIsFullscreenImageOpen(false); }}
                         aria-label="Close fullscreen view"
                     >
                         <X className="w-6 h-6" />

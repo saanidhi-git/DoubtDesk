@@ -316,7 +316,7 @@ export default function AskDoubt({ defaultSubject = "", isOpen, onClose, onSucce
                                 Suggested subject: {suggestedSubject}
                                 <button
                                     type="button"
-                                    onClick={() = aria-label="button"> {
+                                    onClick={() => {
                                         setSubject(suggestedSubject);
                                         setSubjectWasEdited(false);
                                     }}
@@ -332,14 +332,14 @@ export default function AskDoubt({ defaultSubject = "", isOpen, onClose, onSucce
                         <div className="flex items-center justify-between px-1">
                             <label className="text-[10px] font-black uppercase tracking-[0.25em] text-slate-500 dark:text-slate-500">Your Question (Optional if attachment added)</label>
                             <div className="flex items-center gap-1">
-                                <button type="button" onClick={() = aria-label="button"> insertMarkdown("bold")} className="p-1.5 hover:bg-slate-200 dark:hover:bg-white/10 rounded text-slate-600 dark:text-slate-400"><Bold className="w-3 h-3" /></button>
-                                <button type="button" onClick={() = aria-label="button"> insertMarkdown("italic")} className="p-1.5 hover:bg-slate-200 dark:hover:bg-white/10 rounded text-slate-600 dark:text-slate-400"><Italic className="w-3 h-3" /></button>
-                                <button type="button" onClick={() = aria-label="button"> insertMarkdown("code")} className="p-1.5 hover:bg-slate-200 dark:hover:bg-white/10 rounded text-slate-600 dark:text-slate-400"><Code className="w-3 h-3" /></button>
-                                <button type="button" onClick={() = aria-label="button"> insertMarkdown("list")} className="p-1.5 hover:bg-slate-200 dark:hover:bg-white/10 rounded text-slate-600 dark:text-slate-400"><List className="w-3 h-3" /></button>
+                                <button type="button" onClick={() => insertMarkdown("bold")} className="p-1.5 hover:bg-slate-200 dark:hover:bg-white/10 rounded text-slate-600 dark:text-slate-400"><Bold className="w-3 h-3" /></button>
+                                <button type="button" onClick={() => insertMarkdown("italic")} className="p-1.5 hover:bg-slate-200 dark:hover:bg-white/10 rounded text-slate-600 dark:text-slate-400"><Italic className="w-3 h-3" /></button>
+                                <button type="button" onClick={() => insertMarkdown("code")} className="p-1.5 hover:bg-slate-200 dark:hover:bg-white/10 rounded text-slate-600 dark:text-slate-400"><Code className="w-3 h-3" /></button>
+                                <button type="button" onClick={() => insertMarkdown("list")} className="p-1.5 hover:bg-slate-200 dark:hover:bg-white/10 rounded text-slate-600 dark:text-slate-400"><List className="w-3 h-3" /></button>
                                 <div className="w-px h-3 bg-slate-200 dark:bg-white/10 mx-1" />
                                 <button
                                     type="button"
-                                    onClick={() = aria-label="button"> setIsPreviewMode(!isPreviewMode)}
+                                    onClick={() => setIsPreviewMode(!isPreviewMode)}
                                     className={`flex items-center gap-1.5 px-2 py-1 rounded text-[9px] font-black uppercase transition-all ${isPreviewMode ? 'bg-blue-500 text-white' : 'hover:bg-white/10 text-slate-400'}`}
                                 >
                                     {isPreviewMode ? <EyeOff className="w-3 h-3" /> : <Eye className="w-3 h-3" />}
@@ -434,7 +434,7 @@ export default function AskDoubt({ defaultSubject = "", isOpen, onClose, onSucce
                             />
                             <button
                                 type="button"
-                                onClick={() = aria-label="button"> addTag(tagDraft)}
+                                onClick={() => addTag(tagDraft)}
                                 className="text-[9px] font-black uppercase tracking-widest text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
                             >
                                 Add
@@ -446,7 +446,7 @@ export default function AskDoubt({ defaultSubject = "", isOpen, onClose, onSucce
                                     <button
                                         key={tag}
                                         type="button"
-                                        onClick={() = aria-label="button"> setTags((currentTags) => currentTags.filter((item) => item !== tag))}
+                                        onClick={() => setTags((currentTags) => currentTags.filter((item) => item !== tag))}
                                         className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-200 text-[10px] font-bold"
                                     >
                                         {tag}
@@ -487,7 +487,7 @@ export default function AskDoubt({ defaultSubject = "", isOpen, onClose, onSucce
                                             </div>
                                             <button
                                                 type="button"
-                                                onClick={(e) = aria-label="button"> { e.stopPropagation(); setFileName(""); setImageUrl(""); setFileSize(""); }}
+                                                onClick={(e) => { e.stopPropagation(); setFileName(""); setImageUrl(""); setFileSize(""); }}
                                                 className="mt-2 text-[10px] bg-red-500/20 hover:bg-red-500 text-red-400 hover:text-slate-900 dark:hover:text-white px-4 py-1.5 rounded-xl font-black uppercase tracking-widest transition-all z-20"
                                             >
                                                 Remove Attachment
@@ -504,7 +504,7 @@ export default function AskDoubt({ defaultSubject = "", isOpen, onClose, onSucce
                                             </div>
                                             <button
                                                 type="button"
-                                                onClick={(e) = aria-label="button"> { e.stopPropagation(); setFileName(""); setImageUrl(""); setFileSize(""); }}
+                                                onClick={(e) => { e.stopPropagation(); setFileName(""); setImageUrl(""); setFileSize(""); }}
                                                 className="text-[10px] bg-red-500/20 hover:bg-red-500 text-red-400 hover:text-slate-900 dark:hover:text-white px-4 py-1 rounded-xl font-black uppercase tracking-widest transition-all z-20"
                                             >
                                                 Remove Attachment

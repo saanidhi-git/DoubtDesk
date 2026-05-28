@@ -142,7 +142,7 @@ export default function NotificationBell() {
                     variant="ghost" 
                     size="icon" 
                     className="relative rounded-full hover:bg-accent transition-colors"
-                 aria-label="button">
+                 >
                     <Bell className="h-5 w-5 text-muted-foreground" />
                     {unreadCount > 0 && (
                         <span className="absolute -top-1 -right-1 flex min-w-5 h-5 items-center justify-center rounded-full bg-red-500 px-1 text-[10px] font-black text-white ring-2 ring-background">

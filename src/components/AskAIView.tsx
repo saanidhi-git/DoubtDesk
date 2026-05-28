@@ -188,13 +188,13 @@ const { copied, copy } = useCopyToClipboard();
             <div className="bg-white/60 dark:bg-slate-900/60 border border-slate-200 dark:border-white/8 rounded-3xl overflow-hidden shadow-2xl">
                 <div className="flex border-b border-slate-200 dark:border-white/5">
                     <button
-                        onClick={() = aria-label="button"> { setInputMode('text'); setImageBase64(null); }}
+                        onClick={() => { setInputMode('text'); setImageBase64(null); }}
                         className={`flex-1 flex items-center justify-center gap-2 py-4 text-xs font-black uppercase tracking-widest transition-all ${inputMode === 'text' ? 'text-blue-400 border-b-2 border-blue-500 bg-blue-500/5' : 'text-slate-500 hover:text-slate-300'}`}
                     >
                         <Type className="w-4 h-4" /> Type Question
                     </button>
                     <button
-                        onClick={() = aria-label="button"> { setInputMode('image'); setPrompt(''); }}
+                        onClick={() => { setInputMode('image'); setPrompt(''); }}
                         className={`flex-1 flex items-center justify-center gap-2 py-4 text-xs font-black uppercase tracking-widest transition-all ${inputMode === 'image' ? 'text-purple-400 border-b-2 border-purple-500 bg-purple-500/5' : 'text-slate-500 hover:text-slate-300'}`}
                     >
                         <Camera className="w-4 h-4" /> Upload Image
@@ -218,7 +218,7 @@ const { copied, copy } = useCopyToClipboard();
                             <input type="file" accept="image/*" className="hidden" ref={fileInputRef} onChange={handleImageUpload} />
                             {!imageBase64 ? (
                                 <button
-                                    onClick={() = aria-label="button"> fileInputRef.current?.click()}
+                                    onClick={() => fileInputRef.current?.click()}
                                     className="w-full h-44 border-2 border-dashed border-slate-200 dark:border-white/10 rounded-2xl flex flex-col items-center justify-center gap-3 hover:border-purple-500/50 hover:bg-purple-500/5 transition-all group"
                                 >
                                     <div className="w-14 h-14 bg-purple-500/10 rounded-2xl flex items-center justify-center border border-purple-500/20">
@@ -232,7 +232,7 @@ const { copied, copy } = useCopyToClipboard();
                                 <div className="relative rounded-2xl overflow-hidden border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-950">
                                     <img src={imageBase64} alt="Uploaded" className="w-full max-h-64 object-contain" />
                                     <button
-                                        onClick={() = aria-label="button"> setImageBase64(null)}
+                                        onClick={() => setImageBase64(null)}
                                         className="absolute top-3 right-3 w-8 h-8 bg-red-500 rounded-full flex items-center justify-center shadow-lg"
                                         aria-label="Remove image"
                                     >
@@ -245,14 +245,14 @@ const { copied, copy } = useCopyToClipboard();
 
                     <div className="flex flex-wrap gap-2 justify-end">
                         <button
-                            onClick={() = aria-label="button"> handleAskAI('eli10')}
+                            onClick={() => handleAskAI('eli10')}
                             disabled={isLoading || (!prompt.trim() && !imageBase64)}
                             className="flex items-center gap-2 px-5 py-3 bg-pink-500/10 hover:bg-pink-500/20 text-pink-400 border border-pink-500/20 rounded-2xl font-black uppercase tracking-widest text-[9px] transition-all disabled:opacity-40"
                         >
                             {isLoading && currentType === 'eli10' ? <Loader2 className="w-3 h-3 animate-spin" /> : <Brain className="w-3 h-3" />} ELI 10
                         </button>
                         <button
-                            onClick={() = aria-label="button"> handleAskAI('standard')}
+                            onClick={() => handleAskAI('standard')}
                             disabled={isLoading || (!prompt.trim() && !imageBase64)}
                             className="flex items-center gap-2.5 px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl font-black uppercase tracking-widest text-[10px] transition-all shadow-xl shadow-blue-600/20 disabled:opacity-40"
                         >
@@ -303,7 +303,7 @@ const { copied, copy } = useCopyToClipboard();
     <div className="space-y-4">
         <div className="flex justify-end">
             <button
-                onClick={() = aria-label="button"> copy(response, "full-response")}
+                onClick={() => copy(response, "full-response")}
                 className="flex items-center gap-2 px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl font-bold uppercase tracking-tighter text-[9px] transition-all text-slate-400 hover:text-white"
                 aria-label="Copy full response"
             >
@@ -327,7 +327,7 @@ const { copied, copy } = useCopyToClipboard();
                                     <h2 className="text-slate-900 dark:text-white font-black tracking-tight text-sm uppercase italic">{sec.title}</h2>
                                     <div className="ml-auto flex items-center gap-2">
     <button
-        onClick={() = aria-label="button"> copy(sec.content, `section-${idx}`)}
+        onClick={() => copy(sec.content, `section-${idx}`)}
         className="flex items-center gap-1.5 px-3 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl font-bold uppercase tracking-tighter text-[9px] transition-all text-slate-400 hover:text-white"
         aria-label="Copy section content"
         title="Copy to clipboard"

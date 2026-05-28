@@ -174,7 +174,7 @@ export default function FAQPage() {
                     return (
                       <div key={faqIndex} className="group transition-colors duration-200">
                         <button
-                          onClick={() = aria-label="button"> toggleFAQ(id)}
+                          onClick={() => toggleFAQ(id)}
                           className="flex w-full items-center justify-between gap-4 py-4 text-left outline-none"
                         >
                           <span className="text-[15px] sm:text-[16px] font-medium text-slate-800 dark:text-zinc-200 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-200">
