@@ -535,7 +535,7 @@ export default function AskDoubt({ defaultSubject = "", isOpen, onClose, onSucce
                             type="button"
                             onClick={onClose}
                             className="flex-1 py-4 bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:hover:bg-white/10 text-slate-900 dark:text-white rounded-2xl font-bold transition-all border border-slate-200 dark:border-white/5"
-                         aria-label="Close">
+                         >
                             Cancel
                         </button>
                         <button
