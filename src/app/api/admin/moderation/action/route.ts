@@ -75,9 +75,9 @@ export async function POST(request: Request) {
 
         return NextResponse.json({ error: "Invalid action" }, { status: 400 });
 
-    } catch (error: any) {
+    } catch (error: unknown) {
         console.error("Moderation action error:", error);
-        if (error.message === 'NEXT_REDIRECT') {
+        if (error instanceof Error && error.message === 'NEXT_REDIRECT') {
             throw error; 
         }
         return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });

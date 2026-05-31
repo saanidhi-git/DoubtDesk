@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { X, Loader2, Upload, File, Eye, EyeOff, Bold, Italic, Code, List, Tags, Sparkles, FileText, ExternalLink } from "lucide-react";
 import { toast } from "sonner";
 import MarkdownRenderer from "./MarkdownRenderer";
+import type { Doubt, Tag } from "@/types";
 import { OFFLINE_DOUBT_QUEUED } from "@/lib/copy-constants";
 
 interface AskDoubtProps {
@@ -11,7 +12,7 @@ interface AskDoubtProps {
     isOpen: boolean;
     onClose: () => void;
     onSuccess: () => void;
-    doubtToEdit?: any;
+    doubtToEdit?: Doubt & { tags?: Tag[] };
     classroomId?: number | null;
     type?: string;
 }
@@ -85,7 +86,7 @@ export default function AskDoubt({ defaultSubject = "", isOpen, onClose, onSucce
     const [fileSize, setFileSize] = useState("");
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [userName, setUserName] = useState("");
-    const [tags, setTags] = useState<string[]>(doubtToEdit?.tags?.map((tag: any) => tag.name) || []);
+    const [tags, setTags] = useState<string[]>(doubtToEdit?.tags?.map((tag: Tag) => tag.name) || []);
     const [tagDraft, setTagDraft] = useState("");
     const [subjectWasEdited, setSubjectWasEdited] = useState(false);
     const [suggestedSubject, setSuggestedSubject] = useState("");
@@ -134,7 +135,7 @@ export default function AskDoubt({ defaultSubject = "", isOpen, onClose, onSucce
             setSubject(doubtToEdit.subject || defaultSubject);
             setImageUrl(doubtToEdit.imageUrl || "");
             setFileName(doubtToEdit.imageUrl ? (doubtToEdit.imageUrl.startsWith("data:application/pdf") ? "Attached Document.pdf" : "Existing Image") : "");
-            setTags(doubtToEdit.tags?.map((tag: any) => tag.name) || []);
+            setTags(doubtToEdit.tags?.map((tag: Tag) => tag.name) || []);
         } else {
             setSubject(defaultSubject);
             setTags([]);
