@@ -360,6 +360,7 @@ export interface AnalyticsData {
     peakTime: PeakTime[];
     engagement: EngagementMetrics;
     topContributors: TopContributor[];
+    driftOverTime?: { date: string; gradeLevel: number }[];
 }
 
 /** Personal learning recommendations */
