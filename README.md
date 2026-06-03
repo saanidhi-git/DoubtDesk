@@ -43,6 +43,7 @@
     - [Mid-Term (v1.2)](#mid-term-v12)
     - [Long-Term (v2.0)](#long-term-v20)
   - [Code of Conduct](#code-of-conduct)
+  - [Security](#security)
   - [License](#license)
   - [Acknowledgments](#acknowledgments)
 
@@ -409,6 +410,12 @@ The following is a prioritized list of planned enhancements. Contributions towar
 We are committed to providing a welcoming and harassment-free experience for everyone. Please read our [Code of Conduct](CODE_OF_CONDUCT.md) before participating.
 
 **In short:** Be respectful, be constructive, be kind.
+
+---
+
+## Security
+
+If you discover a security vulnerability, please follow the responsible disclosure process described in [SECURITY.md](SECURITY.md).
 
 ---
 
