@@ -1,9 +1,11 @@
 // src/lib/ai/recommendations.ts
 import Groq from "groq-sdk";
 
-const groq = new Groq({
-    apiKey: process.env.GROQ_API_KEY || "dummy_key",
-});
+// Early exit if Groq is not configured — skip guaranteed auth failure
+const groqApiKey = process.env.GROQ_API_KEY;
+const groq = groqApiKey
+    ? new Groq({ apiKey: groqApiKey })
+    : null;
 
 export interface WeakTopic {
     topic: string | null;
@@ -23,12 +25,18 @@ export interface TeachingRecommendation {
 }
 
 /**
+ * Stable key for matching AI output back to DB input.
+ */
+function makeKey(topic: string | null, subject: string): string {
+    return `${(topic || "general").toLowerCase().trim()}||${subject.toLowerCase().trim()}`;
+}
+
+/**
  * Fallback rule-based recommendations when Groq is unavailable.
  */
 function buildFallbackRecommendation(topic: WeakTopic): TeachingRecommendation {
-    const unresolvedRatio = topic.totalCount > 0
-        ? topic.unresolvedCount / topic.totalCount
-        : 0;
+    const unresolvedRatio =
+        topic.totalCount > 0 ? topic.unresolvedCount / topic.totalCount : 0;
 
     const priority: "high" | "medium" | "low" =
         unresolvedRatio >= 0.7 ? "high" :
@@ -46,7 +54,8 @@ function buildFallbackRecommendation(topic: WeakTopic): TeachingRecommendation {
 
 /**
  * Generates AI-powered teaching recommendations for weak topics
- * using Groq. Falls back to rule-based recommendations if Groq fails.
+ * using Groq. Falls back to rule-based recommendations if Groq is
+ * unavailable or unconfigured.
  *
  * @param weakTopics - Topics with high unresolved doubt counts
  * @returns Array of teaching recommendations
@@ -55,6 +64,12 @@ export async function generateRecommendations(
     weakTopics: WeakTopic[]
 ): Promise<TeachingRecommendation[]> {
     if (!weakTopics || weakTopics.length === 0) return [];
+
+    // Short-circuit: if Groq is not configured, skip guaranteed auth failure
+    if (!groq) {
+        console.warn("[Recommendations] GROQ_API_KEY not set, using fallback.");
+        return weakTopics.map(buildFallbackRecommendation);
+    }
 
     try {
         const topicSummary = weakTopics
@@ -80,14 +95,15 @@ Rules:
 - Keep action text under 20 words
 - Keep reasoning text under 25 words
 - Priority: "high" if unresolved >= 70% of total, "medium" if 40-69%, "low" if below 40%
+- Return one recommendation per input topic, in the SAME ORDER as input
 - Never suggest anything harmful or inappropriate
 
 Return ONLY a valid JSON object in this exact shape:
 {
   "recommendations": [
     {
-      "topic": "string",
-      "subject": "string",
+      "topic": "string (exact topic name from input)",
+      "subject": "string (exact subject name from input)",
       "action": "string (specific teaching action, under 20 words)",
       "reasoning": "string (why this is needed, under 25 words)",
       "priority": "high" | "medium" | "low"
@@ -97,7 +113,7 @@ Return ONLY a valid JSON object in this exact shape:
                 },
                 {
                     role: "user",
-                    content: `Here are the weak topics from my classroom that need teaching recommendations:\n\n${topicSummary}\n\nGenerate one recommendation per topic.`,
+                    content: `Here are the weak topics from my classroom that need teaching recommendations:\n\n${topicSummary}\n\nGenerate one recommendation per topic in the same order.`,
                 },
             ],
         });
@@ -112,21 +128,46 @@ Return ONLY a valid JSON object in this exact shape:
             throw new Error("Invalid recommendations format");
         }
 
-        // Merge AI output with our sampleDoubtIds from DB
-        return aiRecs.map((rec: any, i: number) => ({
-            topic: rec.topic || weakTopics[i]?.topic || weakTopics[i]?.subject,
-            subject: rec.subject || weakTopics[i]?.subject,
-            action: rec.action || "Review this topic in next class.",
-            reasoning: rec.reasoning || "High unresolved doubt count.",
-            priority: ["high", "medium", "low"].includes(rec.priority)
-                ? rec.priority
-                : "medium",
-            sampleDoubtIds: weakTopics[i]?.sampleDoubtIds || [],
-        }));
+        // Build a lookup map from DB input keyed by topic+subject
+        const inputMap = new Map<string, WeakTopic>();
+        for (const wt of weakTopics) {
+            inputMap.set(makeKey(wt.topic, wt.subject), wt);
+        }
+
+        // Merge AI output with DB metadata using stable topic+subject key
+        const results: TeachingRecommendation[] = [];
+        for (const rec of aiRecs) {
+            const key = makeKey(rec.topic, rec.subject);
+            const match = inputMap.get(key);
+
+            results.push({
+                topic: rec.topic || match?.topic || match?.subject || "General",
+                subject: rec.subject || match?.subject || "",
+                action: rec.action || "Review this topic in next class.",
+                reasoning: rec.reasoning || "High unresolved doubt count.",
+                priority: ["high", "medium", "low"].includes(rec.priority)
+                    ? rec.priority
+                    : "medium",
+                // Use matched DB entry for sampleDoubtIds, fallback to empty
+                sampleDoubtIds: match?.sampleDoubtIds || [],
+            });
+        }
+
+        // For any input topic not covered by AI output, add fallback
+        for (const wt of weakTopics) {
+            const key = makeKey(wt.topic, wt.subject);
+            const alreadyCovered = results.some(
+                (r) => makeKey(r.topic, r.subject) === key
+            );
+            if (!alreadyCovered) {
+                results.push(buildFallbackRecommendation(wt));
+            }
+        }
+
+        return results;
 
     } catch (error) {
         console.error("[Recommendations] Groq failed, using fallback:", error);
-        // Graceful fallback — analytics still load without AI
         return weakTopics.map(buildFallbackRecommendation);
     }
 }

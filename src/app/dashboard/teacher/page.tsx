@@ -7,6 +7,7 @@ import {
 } from "recharts";
 import { Loader2, TrendingUp, AlertCircle, CheckCircle2, Users, Sparkles, BookOpen, ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 
 const COLORS = ["#8b5cf6", "#3b82f6", "#ec4899", "#f59e0b", "#10b981"];
 
@@ -43,26 +44,35 @@ type Recommendation = {
 export default function TeacherDashboard() {
     const [data, setData] = useState<any>(null);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
 
-    // Grab classroomId from URL — e.g. /dashboard/teacher?classroomId=3
-    const classroomId =
-        typeof window !== "undefined"
-            ? new URLSearchParams(window.location.search).get("classroomId")
-            : null;
+    const searchParams = useSearchParams();
+    const classroomId = searchParams.get("classroomId");
 
     useEffect(() => {
-        const url = classroomId
-            ? `/api/teacher/insights?classroomId=${classroomId}`
-            : "/api/teacher/insights";
+        // Guard: classroomId is required — show error instead of firing bad request
+        if (!classroomId) {
+            setError("No classroom selected. Please open this page from your classroom.");
+            setLoading(false);
+            return;
+        }
 
-        fetch(url)
-            .then((res) => res.json())
+        fetch(`/api/teacher/insights?classroomId=${classroomId}`)
+            .then(async (res) => {
+                // Handle non-2xx responses before storing data
+                if (!res.ok) {
+                    const body = await res.json().catch(() => ({}));
+                    throw new Error(body?.error || `Request failed with status ${res.status}`);
+                }
+                return res.json();
+            })
             .then((json) => {
                 setData(json);
                 setLoading(false);
             })
             .catch((err) => {
                 console.error(err);
+                setError(err.message || "Failed to load analytics.");
                 setLoading(false);
             });
     }, [classroomId]);
@@ -75,12 +85,22 @@ export default function TeacherDashboard() {
         );
     }
 
-    if (!data)
+    if (error) {
         return (
-            <div className="text-slate-900 dark:text-white text-center py-10 font-bold uppercase tracking-widest text-xs bg-white dark:bg-black min-h-screen">
-                Failed to load analytics
+            <div className="flex items-center justify-center min-h-[400px] bg-white dark:bg-black">
+                <div className="text-center space-y-2">
+                    <AlertCircle className="w-8 h-8 text-red-500 mx-auto" />
+                    <p className="text-slate-900 dark:text-white font-bold text-sm">{error}</p>
+                </div>
             </div>
         );
+    }
+
+    if (!data) return (
+        <div className="text-slate-900 dark:text-white text-center py-10 font-bold uppercase tracking-widest text-xs bg-white dark:bg-black min-h-screen">
+            Failed to load analytics
+        </div>
+    );
 
     const recommendations: Recommendation[] = data.recommendations || [];
 
@@ -193,7 +213,7 @@ export default function TeacherDashboard() {
                 </div>
             </div>
 
-            {/* ── AI Recommendations (NEW) ────────────────────────────────── */}
+            {/* ── AI Recommendations ──────────────────────────────────────── */}
             <div className="relative z-10 space-y-4">
                 <div className="flex items-center gap-3">
                     <div className="p-2.5 bg-purple-500/10 rounded-xl border border-purple-500/20">
@@ -207,7 +227,6 @@ export default function TeacherDashboard() {
                             Based on unresolved doubt patterns in your classroom
                         </p>
                     </div>
-                    {/* AI-generated label — clearly visible as required */}
                     <span className="ml-auto inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-600 dark:text-purple-400 text-[10px] font-black uppercase tracking-widest">
                         <Sparkles className="w-3 h-3" /> AI-Generated
                     </span>
@@ -223,13 +242,12 @@ export default function TeacherDashboard() {
                 ) : (
                     <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
                         {recommendations.map((rec, i) => {
-                            const styles = PRIORITY_STYLES[rec.priority];
+                            const styles = PRIORITY_STYLES[rec.priority] || PRIORITY_STYLES.medium;
                             return (
                                 <div
                                     key={i}
                                     className={`${styles.bg} border ${styles.border} rounded-2xl p-5 flex flex-col gap-3 hover:-translate-y-1 transition-all duration-300 backdrop-blur-sm`}
                                 >
-                                    {/* Header */}
                                     <div className="flex items-start justify-between gap-2">
                                         <div className="flex items-center gap-2 min-w-0">
                                             <div className={`w-2 h-2 rounded-full shrink-0 ${styles.dot}`} />
@@ -242,25 +260,21 @@ export default function TeacherDashboard() {
                                         </span>
                                     </div>
 
-                                    {/* Subject tag */}
                                     <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-slate-100 dark:bg-zinc-800 text-slate-500 dark:text-zinc-400 border border-slate-200 dark:border-zinc-700 w-fit">
                                         {rec.subject}
                                     </span>
 
-                                    {/* Action */}
                                     <p className="text-sm font-semibold text-slate-800 dark:text-zinc-200 leading-relaxed">
                                         {rec.action}
                                     </p>
 
-                                    {/* Reasoning */}
                                     <p className="text-xs text-slate-500 dark:text-zinc-500 leading-relaxed">
                                         {rec.reasoning}
                                     </p>
 
-                                    {/* Clickthrough to related doubts */}
                                     {rec.sampleDoubtIds && rec.sampleDoubtIds.length > 0 && classroomId && (
                                         <Link
-                                            href={`/rooms/${classroomId}?filter=${encodeURIComponent(rec.topic)}`}
+                                            href={`/rooms/${classroomId}?tab=community&search=${encodeURIComponent(rec.topic)}`}
                                             className="mt-auto inline-flex items-center gap-1.5 text-[11px] font-bold text-purple-600 dark:text-purple-400 hover:underline underline-offset-2 group w-fit"
                                         >
                                             View {rec.sampleDoubtIds.length} related doubt{rec.sampleDoubtIds.length > 1 ? "s" : ""}
@@ -268,7 +282,6 @@ export default function TeacherDashboard() {
                                         </Link>
                                     )}
 
-                                    {/* AI label per card */}
                                     <div className="flex items-center gap-1 text-[9px] font-bold uppercase tracking-widest text-slate-400 dark:text-zinc-600 mt-1">
                                         <Sparkles className="w-2.5 h-2.5" /> AI-generated recommendation
                                     </div>

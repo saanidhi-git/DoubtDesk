@@ -36,7 +36,7 @@ export async function GET(req: Request) {
 
         const classroomFilter = eq(doubtsTable.classroomId, classroomId);
 
-        // 1. Top Confusion Topics (by doubt count) — unchanged
+        // 1. Top Confusion Topics (by total doubt count) — unchanged
         const topTopics = await db
             .select({
                 topic: doubtsTable.subTopic,
@@ -69,7 +69,7 @@ export async function GET(req: Request) {
             .where(classroomFilter)
             .groupBy(doubtsTable.subject);
 
-        // 4. NEW — Unresolved count per topic for recommendations
+        // 4. NEW — Unresolved count per (topic, subject) pair
         const unresolvedPerTopic = await db
             .select({
                 topic: doubtsTable.subTopic,
@@ -88,10 +88,29 @@ export async function GET(req: Request) {
             .orderBy(sql`count(*) DESC`)
             .limit(5);
 
-        // 5. NEW — Sample doubt IDs per topic for clickthrough links
+        // 5. NEW — Dedicated total count per (topic, subject) pair
+        // This avoids relying on topTopics (top-5 only) for ratio calculations
+        const totalPerTopic = await db
+            .select({
+                topic: doubtsTable.subTopic,
+                subject: doubtsTable.subject,
+                totalCount: sql<number>`count(*)::int`,
+            })
+            .from(doubtsTable)
+            .where(
+                and(
+                    classroomFilter,
+                    sql`${doubtsTable.subTopic} IS NOT NULL`
+                )
+            )
+            .groupBy(doubtsTable.subTopic, doubtsTable.subject);
+
+        // 6. NEW — Sample doubt IDs scoped by BOTH topic AND subject
+        // Fetched per (topic, subject) pair to avoid cross-subject ID mixing
         const sampleDoubtsPerTopic = await db
             .select({
                 topic: doubtsTable.subTopic,
+                subject: doubtsTable.subject,
                 id: doubtsTable.id,
             })
             .from(doubtsTable)
@@ -103,35 +122,38 @@ export async function GET(req: Request) {
                 )
             )
             .orderBy(sql`${doubtsTable.createdAt} DESC`)
-            .limit(25);
+            .limit(50);
 
-        // 6. Build WeakTopic objects for AI input
+        // 7. Build WeakTopic objects for AI input
         const weakTopics: WeakTopic[] = unresolvedPerTopic.map((row) => {
-            const totalEntry = topTopics.find(
+            // Use dedicated total count query — not topTopics (which is top-5 only)
+            const totalEntry = totalPerTopic.find(
                 (t) => t.topic === row.topic && t.subject === row.subject
             );
+
+            // Scope sample IDs by BOTH topic AND subject to prevent cross-subject mixing
             const sampleIds = sampleDoubtsPerTopic
-                .filter((d) => d.topic === row.topic)
+                .filter((d) => d.topic === row.topic && d.subject === row.subject)
                 .map((d) => d.id)
                 .slice(0, 5);
 
             return {
                 topic: row.topic,
                 subject: row.subject,
-                totalCount: totalEntry?.count ?? row.unresolvedCount,
+                totalCount: totalEntry?.totalCount ?? row.unresolvedCount,
                 unresolvedCount: row.unresolvedCount,
                 sampleDoubtIds: sampleIds,
             };
         });
 
-        // 7. Generate AI recommendations (with graceful fallback)
+        // 8. Generate AI recommendations (with graceful fallback)
         const recommendations = await generateRecommendations(weakTopics);
 
         return NextResponse.json({
             topTopics,
             statusDistribution,
             subjectVolume,
-            recommendations, // NEW
+            recommendations,
         });
 
     } catch (error) {
