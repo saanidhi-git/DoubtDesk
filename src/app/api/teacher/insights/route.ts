@@ -35,7 +35,7 @@ export async function GET(req: Request) {
         }
 
         const classroomFilter = eq(doubtsTable.classroomId, classroomId);
-        // 1. Top Confusion Topics (by total doubt count) — unchanged
+
         const topTopics = await db
             .select({
                 topic: doubtsTable.subTopic,
@@ -48,7 +48,6 @@ export async function GET(req: Request) {
             .orderBy(sql`count(*) DESC`)
             .limit(5);
 
-        // 2. Solved vs Unsolved Status — unchanged
         const statusDistribution = await db
             .select({
                 status: doubtsTable.isSolved,
@@ -58,7 +57,6 @@ export async function GET(req: Request) {
             .where(classroomFilter)
             .groupBy(doubtsTable.isSolved);
 
-        // 3. Subject-wise Volume — unchanged
         const subjectVolume = await db
             .select({
                 subject: doubtsTable.subject,
@@ -68,7 +66,6 @@ export async function GET(req: Request) {
             .where(classroomFilter)
             .groupBy(doubtsTable.subject);
 
-        // 4. NEW — Unresolved count per (topic, subject) pair
         const unresolvedPerTopic = await db
             .select({
                 topic: doubtsTable.subTopic,
@@ -87,8 +84,6 @@ export async function GET(req: Request) {
             .orderBy(sql`count(*) DESC`)
             .limit(5);
 
-        // 5. NEW — Dedicated total count per (topic, subject) pair
-        // Avoids relying on topTopics (top-5 only) for ratio calculations
         const totalPerTopic = await db
             .select({
                 topic: doubtsTable.subTopic,
@@ -96,16 +91,9 @@ export async function GET(req: Request) {
                 totalCount: sql<number>`count(*)::int`,
             })
             .from(doubtsTable)
-            .where(
-                and(
-                    classroomFilter,
-                    sql`${doubtsTable.subTopic} IS NOT NULL`
-                )
-            )
+            .where(and(classroomFilter, sql`${doubtsTable.subTopic} IS NOT NULL`))
             .groupBy(doubtsTable.subTopic, doubtsTable.subject);
 
-        // 6. NEW — Sample doubt IDs fetched per (topic, subject) pair
-        // Per-pair queries prevent one dominant topic from monopolizing a global slice
         const sampleIdsByKey = new Map<string, number[]>();
         await Promise.all(
             unresolvedPerTopic.map(async (row) => {
@@ -127,13 +115,11 @@ export async function GET(req: Request) {
             })
         );
 
-        // 7. Build WeakTopic objects for AI input
         const weakTopics: WeakTopic[] = unresolvedPerTopic.map((row) => {
             const totalEntry = totalPerTopic.find(
                 (t) => t.topic === row.topic && t.subject === row.subject
             );
             const sampleIds = sampleIdsByKey.get(`${row.topic}::${row.subject}`) ?? [];
-
             return {
                 topic: row.topic,
                 subject: row.subject,
@@ -143,7 +129,6 @@ export async function GET(req: Request) {
             };
         });
 
-        // 8. Generate AI recommendations (with graceful fallback)
         const recommendations = await generateRecommendations(weakTopics);
 
         return NextResponse.json({
