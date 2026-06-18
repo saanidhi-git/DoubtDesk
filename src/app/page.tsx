@@ -427,7 +427,7 @@ export default function Home() {
                   className="p-6 rounded-3xl border border-slate-200/80 dark:border-zinc-800/80 bg-white dark:bg-zinc-900/40 backdrop-blur-md hover:border-blue-400 dark:hover:border-zinc-700 hover:bg-slate-50 dark:hover:bg-zinc-900/60 transition-all duration-500 flex flex-col justify-between shadow-sm dark:shadow-none hover:shadow-xl hover:-translate-y-1 animate-in fade-in slide-in-from-bottom-6 fill-mode-both"
                 >
                   <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed italic transition-colors duration-300">
-                    “{t.text}”
+                    “{t.quote}”
                   </p>
                   <div className="mt-6 pt-4 border-t border-slate-100 dark:border-zinc-800/60 flex flex-col">
                     <div className="text-slate-950 dark:text-slate-100 font-bold tracking-tight transition-colors duration-300">
