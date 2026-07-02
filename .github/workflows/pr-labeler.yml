@@ -529,7 +529,14 @@ jobs:
                 });
                 console.log(`PR #${number} merged — added approval labels.`);
 
-                const transientLabels = ['review-needed', 'needs-maintainer-approval'];
+                const transientLabels = [
+                  'review-needed',
+                  'needs-maintainer-approval',
+                  'quality : needs-work',
+                  'quality:needs-work',
+                  'merge-conflict',
+                  'need-star'
+                ];
                 for (const label of labels) {
                   const shouldRemove =
                     label.name.startsWith('size/') ||
@@ -581,6 +588,11 @@ jobs:
               prDetails = data;
             } catch (e) {
               console.log(`Error fetching PR details: ${e.message}`);
+              return;
+            }
+
+            if (prDetails.state === 'closed') {
+              console.log('PR is closed. Skipping dynamic label updates.');
               return;
             }
 
