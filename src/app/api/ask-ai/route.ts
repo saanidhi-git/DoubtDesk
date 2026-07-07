@@ -8,6 +8,7 @@ import { enforceApiRateLimit } from "@/lib/api-rate-limit";
 import { aiLimiter } from "@/lib/ratelimit";
 import { AI_REQUEST_MAX_BYTES } from "@/lib/ai-image-validation";
 import { buildSystemMessages } from "@/lib/socratic-prompt";
+import { buildErrorResponse } from "@/lib/error-handler";
 import type { AIMode } from "@/types/ai-chat";
 
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY || "dummy_build_key" });
@@ -160,9 +161,9 @@ export async function POST(req: Request): Promise<NextResponse> {
       max_tokens: 700,
     });
   } catch (err) {
-    const msg = err instanceof Error ? err.message : "Groq API call failed";
-    console.error("[ask-ai] Groq error:", msg);
-    return NextResponse.json({ error: "AI service error" }, { status: 502 });
+    console.error("[ask-ai] Groq error:", err);
+    const { status, body } = buildErrorResponse(err);
+    return NextResponse.json(body, { status: status === 500 ? 502 : status });
   }
 
   const latencyMs = Date.now() - startMs;
@@ -177,7 +178,7 @@ export async function POST(req: Request): Promise<NextResponse> {
     .insert(aiSessionsTable)
     .values({
       userName: user.fullName ?? "Unknown",
-      subject: subject ?? body.type ?? "General",
+      subject: subject ?? (typeof body.type === "string" ? body.type : "General"),
       content: prompt.slice(0, 80),
     })
     .returning();

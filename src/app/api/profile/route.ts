@@ -5,6 +5,7 @@ import { eq, or, inArray, isNull, and } from "drizzle-orm";
 import { db } from "@/configs/db";
 import { doubtsTable, repliesTable, membershipsTable, classroomsTable, usersTable } from "@/configs/schema";
 import { auth, currentUser } from "@clerk/nextjs/server";
+import { buildErrorResponse } from "@/lib/error-handler";
 import type { ProfileClassroom } from "@/types/profile";
 
 export async function GET(req: Request) {
@@ -85,10 +86,8 @@ export async function GET(req: Request) {
         });
     } catch (error: unknown) {
         console.error("Profile API Error:", error);
-        return NextResponse.json(
-            { error: error instanceof Error ? error.message : "Internal Server Error" },
-            { status: 500 }
-        );
+        const { status, body } = buildErrorResponse(error);
+        return NextResponse.json(body, { status });
     }
 }
 

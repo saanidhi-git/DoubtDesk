@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/configs/db";
 import { usersTable, karmaTransactionsTable, userBadgesTable, badgeDefinitionsTable } from "@/configs/schema";
 import { eq, desc, sql } from "drizzle-orm";
+import { buildErrorResponse } from "@/lib/error-handler";
 import { checkAndAwardBadges } from "@/lib/karma-utils";
 import { currentUser } from "@clerk/nextjs/server";
 
@@ -189,9 +190,7 @@ export async function POST(req: NextRequest) {
         }
         
         console.error("CRITICAL: Karma mutation endpoint exception:", error);
-        return NextResponse.json(
-            { error: "Internal Server Error", details: error instanceof Error ? error.message : "Database failure" }, 
-            { status: 500 }
-        );
+        const { status, body } = buildErrorResponse(error);
+        return NextResponse.json(body, { status });
     }
 }

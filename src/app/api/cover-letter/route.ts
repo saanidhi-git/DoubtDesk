@@ -4,6 +4,7 @@ import { db } from "@/configs/db";
 import { coverLettersTable } from "@/configs/schema";
 import { currentUser } from "@clerk/nextjs/server";
 import { checkUserBlock } from "@/lib/auth-utils";
+import { buildErrorResponse } from "@/lib/error-handler";
 
 export async function POST(req: NextRequest) {
     try {
@@ -81,10 +82,8 @@ Write a professional cover letter based on these details.
         return NextResponse.json({ coverLetter });
 
     } catch (error: unknown) {
-        const err = error as { response?: { data?: unknown }; message?: string };
-        console.error("Cover Letter Generation Error:", err.response?.data || err.message);
-        return NextResponse.json({
-            error: err.message || "Failed to generate cover letter",
-        }, { status: 500 });
+        console.error("Cover Letter Generation Error:", error);
+        const { status, body } = buildErrorResponse(error);
+        return NextResponse.json(body, { status });
     }
 }
